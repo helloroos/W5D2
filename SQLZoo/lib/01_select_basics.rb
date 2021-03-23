@@ -8,6 +8,15 @@
 #  population  :integer
 #  gdp         :integer
 
+    (SELECT
+      subject
+    FROM
+      nobels
+    GROUP BY
+      yr 
+    HAVING 
+      yr = 1962) = 'Literature';
+
 require_relative './sqlzoo.rb'
 
 def example_select
