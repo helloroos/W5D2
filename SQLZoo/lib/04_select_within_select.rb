@@ -80,20 +80,13 @@ def neighbors_of_certain_b_countries
   FROM
     countries
   WHERE
-    continent = (
+    continent IN (
       SELECT
         continent
       FROM
         countries
       WHERE
-        name IN ('Belize')
-    ) AND continent = (
-      SELECT
-        continent
-      FROM
-        countries
-      WHERE
-        name IN ('Belgium')  
+        name IN ('Belize', 'Belgium')
     );
   SQL
 end
@@ -102,6 +95,26 @@ def population_constraint
   # Which country has a population that is more than Canada but less than
   # Poland? Show the name and the population.
   execute(<<-SQL)
+  SELECT
+    name, population
+  FROM
+    countries
+  WHERE 
+    population > (
+      SELECT
+        population
+      FROM
+        countries
+      WHERE
+        name = 'Canada'
+    ) AND population < (
+      SELECT
+        population
+      FROM
+        countries
+      WHERE
+        name = 'Poland'
+    );
   SQL
 end
 
@@ -110,6 +123,22 @@ def sparse_continents
   # population is less than 25,000,000. Show name, continent and
   # population.
   # Hint: Sometimes rewording the problem can help you see the solution.
+  # 1) BELONGS TO CONTINENT // CONTINENT IS NOT NULL
+  # 2) POPULATION < 25000000
+  # 3) ONLY SHOW IF EVERY COUNTRY IN CONT HAS LESS THAN 25MIL.
   execute(<<-SQL)
+  SELECT
+    name, continent, population
+  FROM
+    countries
+  WHERE
+    population < (
+      SELECT
+        population
+      FROM
+        countries
+      WHERE
+
+    )
   SQL
 end
