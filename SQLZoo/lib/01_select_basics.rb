@@ -67,7 +67,7 @@ def scandinavia
     FROM
       countries
     WHERE
-      name IN ("Denmark", "Finland", "Norway", "Sweden");
+      continent = "Europe";
   SQL
 end
 
